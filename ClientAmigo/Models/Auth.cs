@@ -11,6 +11,7 @@ namespace ClientAmigo.Models
 {
     public class Auth
     {
+       
         public string PostData { get; set; }
         private string page = "http://localhost:8090/auth";
         public string postAuthExistByLogin(string login)
@@ -21,7 +22,7 @@ namespace ClientAmigo.Models
             request.ContentLength = 0;
             request.ContentType = "application/json";
            
-                PostData = "{ \"login\":\"" + login + "\"}";
+                PostData = login;
 
           
 

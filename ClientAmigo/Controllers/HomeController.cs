@@ -24,6 +24,33 @@ namespace ClientAmigo.Controllers
             
             return View();
         }
+        public ActionResult Connexion()
+        {
+
+            return View();
+        }
+        public ActionResult authentification()
+        {
+            string login;
+            string password;
+            login = Request.Form["login"];
+            password = security.Encrypt(Request.Form["password"], key);
+            string result = auth.postAuthExistByLogin(login);
+            if (result != "")
+            {
+                var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+                AuthResponse test = ser.Deserialize<AuthResponse>(result);
+                string pwdauth = test.pwd;
+                if (pwdauth == password)
+                {
+                    ViewData["msg"] = "Bienvenu " + test.login;
+                    Session["id"] = test.id;
+                    Session["login"] = test.login;
+                    return View("index");
+                }
+            }
+            return View("Connexion");
+        }
         public ActionResult createUser()
         {
             string email;
