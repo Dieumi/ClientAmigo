@@ -5,3 +5,79 @@
 
 <h2>index</h2>
 
+<form method="post" action="/Voyage/create">
+    <div class="form-group">
+        <label for="dep">Depart</label>
+        <select  name="depart" id="dep" class="custom-select">
+            <option selected>Open this select menu</option>
+            @{
+                foreach (var ville in ViewBag.listv)
+                {
+                    <option id="@ville.id">@ville.name</option>
+                }
+            }
+        </select>
+        </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Arrivé</label>
+        <select name="arrive"  id ="arr" class="custom-select">
+            <option selected>Open this select menu</option>
+            @{
+                foreach (var ville in ViewBag.listv)
+                {
+                    <option id="@ville.id">@ville.name</option>
+                }
+            }
+        </select>
+     </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Type de voiture</label>
+        <select name="type" id="type" class="custom-select">
+            <option selected>Open this select menu</option>
+            <option value="4x4">4x4</option>
+            <option value="berline">berline</option>
+            <option value="coupe">coupe</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <div class='input-group date' >
+            <label for="date">date</label>
+            <input type='text' name="date" id="datepicker" class="form-control" />
+        </div>
+    </div>
+    <div class="input-group clockpicker">
+        <label for="date">Heure départ</label>
+        <input type="text" name="heure" id="heure" class="form-control">
+        
+    </div>
+    <div class="form-group">
+        <div class='input-group'>
+            <label for="exampleInputEmail1">Nombre de place</label>
+            <input type="text" class="form-control" name="nbplace" id="nbplace" aria-describedby="emailHelp" placeholder="Nombre de place">
+        </div>
+    </div>
+        <div class="form-group">
+            <div class='input-group'>
+                <label for="exampleInputEmail1">Prix</label>
+                <input type="text" class="form-control" name="prix" id="prix" aria-describedby="emailHelp" placeholder="Prix">
+                </div>
+            </div>
+  
+        <button type="submit" class="btn btn-primary">Valider</button>
+</form>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $("#datepicker").datepicker();
+            $('.clockpicker').clockpicker();
+            $("#heure").on("click", function () {
+              
+                $("button, .btn, .btn-sm, .btn-default, .btn-block, .clockpicker-button").text("Valider");
+            })
+          
+        });
+    });
+</script>

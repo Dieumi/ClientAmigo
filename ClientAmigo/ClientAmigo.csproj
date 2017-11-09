@@ -149,27 +149,40 @@
     </Compile>
     <Compile Include="Models\Auth.cs" />
     <Compile Include="Models\AuthResponse.cs" />
+    <Compile Include="Models\Voyage.cs" />
     <Compile Include="Models\Ville.cs" />
     <Compile Include="Models\SecurityController.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-clockpicker.css" />
+    <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\clockpicker.css" />
+    <Content Include="Content\jquery-clockpicker.css" />
+    <Content Include="Content\jquery-clockpicker.min.css" />
+    <Content Include="Content\standalone.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-clockpicker.js" />
+    <Content Include="Scripts\bootstrap-clockpicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\clockpicker.css" />
+    <Content Include="Scripts\clockpicker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-clockpicker.js" />
+    <Content Include="Scripts\jquery-clockpicker.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -177,6 +190,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\standalone.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
