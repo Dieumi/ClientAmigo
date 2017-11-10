@@ -24,6 +24,13 @@ namespace ClientAmigo.Controllers
             
             return View();
         }
+        public ActionResult Deconnexion()
+        {
+            Session.Clear();
+          
+            ViewData["msg"] = "Merci et au revoir ";
+            return View("Index");
+        }
         public ActionResult Connexion()
         {
 

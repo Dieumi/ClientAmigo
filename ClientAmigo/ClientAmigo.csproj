@@ -143,12 +143,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\VoyageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Auth.cs" />
     <Compile Include="Models\AuthResponse.cs" />
+    <Compile Include="Models\Reservation.cs" />
     <Compile Include="Models\Voyage.cs" />
     <Compile Include="Models\Ville.cs" />
     <Compile Include="Models\SecurityController.cs" />
@@ -161,6 +163,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\clockpicker.css" />
+    <Content Include="Content\image\images.png" />
     <Content Include="Content\jquery-clockpicker.css" />
     <Content Include="Content\jquery-clockpicker.min.css" />
     <Content Include="Content\standalone.css" />
@@ -206,6 +209,9 @@
     <Content Include="Views\Home\Inscription.cshtml" />
     <Content Include="Views\Voyage\index.cshtml" />
     <Content Include="Views\Home\Connexion.cshtml" />
+    <Content Include="Views\Voyage\search.cshtml" />
+    <Content Include="Views\Reservation\index.cshtml" />
+    <Content Include="Views\Reservation\book.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

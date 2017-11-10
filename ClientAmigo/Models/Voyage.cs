@@ -13,22 +13,34 @@ namespace ClientAmigo.Models
 {
     public class Voyage
     {
-       
-        public string PostData { get; set; }
+        public string id { get; set; }
+
+        public string idUser { get; set; }
+
+        public int nbplace { get; set; }
+
+        public string depart { get; set; }
+
+        public string arrive { get; set; }
+
+        public string typeVoiture { get; set; }
+        public double price { get; set; }
+        public double note { get; set; }
+        public string date { get; set; }
+        public string heureDep { get; set; }
+        private string verb;
+        private string PostData { get; set; }
         private string page = "http://localhost:8090/voyage";
 
-      
-        public string createVoyage(string id,string arrive, string depart, string heure, string date,int nbplace,double prix,string typevoiture)
+        public string MakeReq(string data,string pagesuite,HttpStatusCode status)
         {
-            var request = (HttpWebRequest)WebRequest.Create(page);
+            var request = (HttpWebRequest)WebRequest.Create(page+pagesuite);
 
-            request.Method = HttpVerbs.Post.ToString();
+            request.Method = verb;
             request.ContentLength = 0;
             request.ContentType = "application/json";
-            PostData = "{ \"idUser\":\"" + id + "\",\"nbplace\":\"" + nbplace + "\",\"depart\":\"" + depart + "\",\"arrive\":\"" + arrive + "\",\"typeVoiture\":\""+typevoiture+ "\",\"price\":\"" + prix + "\",\"heureDep\":\"" + heure + "\",\"date\":\"" + date + "\"}";
-
             var encoding = new UTF8Encoding();
-            var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(PostData);
+            var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(data);
             request.ContentLength = bytes.Length;
 
             using (var writeStream = request.GetRequestStream())
@@ -41,7 +53,7 @@ namespace ClientAmigo.Models
             {
                 var responseValue = string.Empty;
 
-                if (response.StatusCode != HttpStatusCode.Created)
+                if (response.StatusCode != status)
                 {
                     var message = String.Format("Request failed. Received HTTP {0}", response.StatusCode);
                     throw new ApplicationException(message);
@@ -61,6 +73,27 @@ namespace ClientAmigo.Models
 
 
             }
+        }
+        public string createVoyage(string id,string arrive, string depart, string heure, string date,int nbplace,double prix,string typevoiture)
+        {
+            verb = HttpVerbs.Post.ToString();
+            PostData = "{ \"idUser\":\"" + id + "\",\"nbplace\":\"" + nbplace + "\",\"depart\":\"" + depart + "\",\"arrive\":\"" + arrive + "\",\"typeVoiture\":\""+typevoiture+ "\",\"price\":\"" + prix + "\",\"heureDep\":\"" + heure + "\",\"date\":\"" + date + "\"}";
+            string response= MakeReq(PostData,null,HttpStatusCode.Created);
+            return response;
+        }
+        public string getListVoyage( string arrive, string depart,string heureDep,string date)
+        {
+            verb = HttpVerbs.Post.ToString();
+            PostData = "{\"depart\":\"" + depart + "\",\"arrive\":\"" + arrive + "\",\"heureDep\":\"" + heureDep + "\",\"date\":\"" + date + "\"}";
+            string response = MakeReq(PostData,"/getList",HttpStatusCode.OK);
+            return response;
+        }
+        public string updateVoyage(string idvoyage)
+        {
+            verb = HttpVerbs.Put.ToString();
+            PostData = idvoyage;
+            string responsevalue = MakeReq(PostData, "/reduce", HttpStatusCode.OK);
+            return responsevalue;
         }
     }
 }

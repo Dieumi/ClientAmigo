@@ -22,6 +22,18 @@ namespace ClientAmigo.Controllers
             
             return View();
         }
+        public ActionResult search()
+        {
+            string arr = Request.Form["arr"];
+            string dep = Request.Form["dep"];
+            string date = Request.Form["date"];
+            string heure = Request.Form["heure"];
+            var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Voyage> ListVoyage=ser.Deserialize<List<Voyage>>(voyage.getListVoyage(arr, dep,heure,date));
+            ViewBag.listvoyage = ListVoyage;
+            ViewBag.length = ListVoyage.Count;
+            return View();
+        }
         public ActionResult create()
         {
             string listville = ville.getAllville();

@@ -1,6 +1,27 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    height:100%;
+}
+.footer {
+    position: relative;
+    height: 5em;
+    margin-bottom: -5em;
+    /* bottom:3px;
+    z-index:05px;
+    margin-top:-5em; */
+    background-image: url('bg_footer111.gif');
+    background-repeat: no-repeat;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #FFFFFF;
+    left: 5px;
+    right: -5px;
+    width: 982px;
+}
+#back{
+    background-color:white;
 }
 nav{
     margin-top:5px;

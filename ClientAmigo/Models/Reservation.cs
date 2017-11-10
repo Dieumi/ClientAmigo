@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.Net;
 using System.Text;
-using System.IO;
+using System.Web;
+using System.Web.Mvc;
 
 namespace ClientAmigo.Models
 {
-    public class User
+    public class Reservation
     {
-       
-        public string PostData { get; set; }
-        private string page = "http://localhost:8090/user";
+        public string id { get; set; }
+        public string idVoyage { get; set; }
+        public string idUser { get; set; }
 
-        public string createUser(string name, string lastname, string email, string login)
+        private string verb;
+        private string PostData { get; set; }
+        private string page = "http://localhost:8090/uservoyage";
+
+        public string MakeReq(string data, string pagesuite,HttpStatusCode status)
         {
-            var request = (HttpWebRequest)WebRequest.Create(page);
+            var request = (HttpWebRequest)WebRequest.Create(page + pagesuite);
 
-            request.Method = HttpVerbs.Post.ToString();
+            request.Method = verb;
             request.ContentLength = 0;
             request.ContentType = "application/json";
-            PostData = "{ \"name\":\"" + name + "\",\"lastName\":\"" + lastname + "\",\"login\":\"" + login + "\",\"email\":\"" + email + "\",\"type\":\"user\"}";
-
             var encoding = new UTF8Encoding();
-            var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(PostData);
+            var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(data);
             request.ContentLength = bytes.Length;
 
             using (var writeStream = request.GetRequestStream())
@@ -40,7 +40,7 @@ namespace ClientAmigo.Models
             {
                 var responseValue = string.Empty;
 
-                if (response.StatusCode != HttpStatusCode.Created)
+                if (response.StatusCode != status)
                 {
                     var message = String.Format("Request failed. Received HTTP {0}", response.StatusCode);
                     throw new ApplicationException(message);
@@ -61,5 +61,14 @@ namespace ClientAmigo.Models
 
             }
         }
+
+        public string makeABook(string idvoyage,string iduser)
+        {
+            verb = HttpVerbs.Post.ToString();
+            PostData = "{\"idVoyage\":\"" + idvoyage + "\",\"idUser\":\"" + iduser + "\"}";
+            string responsevalue = MakeReq(PostData, "",HttpStatusCode.Created);
+            return responsevalue;
+        }
+        
     }
 }

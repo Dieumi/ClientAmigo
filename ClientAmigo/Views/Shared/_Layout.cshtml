@@ -5,6 +5,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="~/Content/clockpicker.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/Site.css" crossorigin="anonymous">
     <link rel="stylesheet" href="~/Content/standalone.css" crossorigin="anonymous">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -41,7 +42,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
-                   
+                    <li class="nav-item active">
+                      
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown
@@ -62,6 +65,10 @@
                                 <a class="nav-link " href="@Url.Action("Index", "Voyage")">  Créer Voyage</a>
                               
                             </li>
+                            <li>
+                                <a class="nav-link " href="@Url.Action("Deconnexion", "Home")"> Deconnexion</a>
+
+                            </li>
                         }
                         else
                         {
@@ -75,14 +82,19 @@
 
                     }
                 </ul>
-               
+                <form class="form-inline my-2 my-lg-0" action="/Voyage/search" method="post">
+                    <input class="form-control mr-sm-2" name="arr" type="search" placeholder="Arruvé" aria-label="Search">
+                    <input class="form-control mr-sm-2" name="dep" type="search" placeholder="Départ" aria-label="Search">
+                    <input class="form-control mr-sm-2" name="date" type="search" placeholder="Date" id="datesearch" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
         </nav>
    
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="footer">
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
@@ -90,6 +102,15 @@
     
 
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $("#datesearch").datepicker();
+               
+
+            });
+        });
+    </script>
   
 </body>
 
