@@ -51,7 +51,9 @@ namespace ClientAmigo.Controllers
                 if (pwdauth == password)
                 {
                     ViewData["msg"] = "Bienvenu " + test.login;
-                    Session["id"] = test.id;
+                    result = user.findUser(test.login);
+                    User userresponse = ser.Deserialize<User>(result);
+                    Session["id"] = userresponse.id;
                     Session["login"] = test.login;
                     return View("index");
                 }

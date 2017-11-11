@@ -5,19 +5,19 @@
 
 <h2>search</h2>
 
-
+    
     <div id="accordion" role="tablist" aria-multiselectable="true">
         @{
             var t = 0;
             <input type="hidden" id="length" value="@ViewBag.length" />
             foreach (var v in ViewBag.listvoyage)
             {
-
+                
                 <div class="card">
                     <div class="card-header" role="tab" id="@String.Concat("headingOne", t)">
                         <h5 class="mb-0">
                             <a id="@String.Concat("link", t)" data-toggle="collapse" data-parent="#accordion" href="@String.Concat("#collapseOne", t)" aria-expanded="true" aria-controls="@String.Concat("#collapseOne", t)">
-                                @v.depart-@v.arrive
+                                @v.depart-@v.arrive   ----------------------------------------@v.date
                             </a>
                         </h5>
                     </div>
@@ -36,10 +36,23 @@
                             }
 
                             <br>
-
+                            @foreach(var c in ViewBag.condition)
+                            {
+                                if (c.idvoyage == v.id)
+                                {
+                                    foreach(var value in ViewBag.list)
+                                    {
+                                        if (c.idType == value.id)
+                                        {
+                                            @value.value
+                                        }
+                                    }
+                                }
+                            }
                             Prix de la place : @v.price<br>
                             <form class="form-inline my-2 my-lg-0" action="/Reservation/book" method="post">
                                 <input class="form-control mr-sm-2" name="id" type="hidden" value="@v.id">
+                                <input type="hidden" value="@v.price" name="price" />
                                 <button type="submit" class="btn btn-primary">Réserver</button>
                                
                             </form>

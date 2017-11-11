@@ -3,7 +3,7 @@
     ViewBag.Title = "index";
 }
 
-<h2>index</h2>
+<h2>Créer votre itinéraire</h2>
 
 <form method="post" action="/Voyage/create">
     <div class="form-group">
@@ -13,7 +13,7 @@
             @{
                 foreach (var ville in ViewBag.listv)
                 {
-                    <option id="@ville.id">@ville.name</option>
+                    <option value="@ville.name">@ville.name</option>
                 }
             }
         </select>
@@ -62,7 +62,24 @@
                 <input type="text" class="form-control" name="prix" id="prix" aria-describedby="emailHelp" placeholder="Prix">
                 </div>
             </div>
-  
+    <div class="form-group" id="listtype">
+        <label for="exampleInputEmail1">Condition</label>
+        <select name="typeV" id="arr" class="custom-select">
+            <option selected>Open this select menu</option>
+            @{
+                foreach (var type in ViewBag.list)
+                {
+                    <option value="@type.id">@type.value</option>
+                }
+            }
+        </select>
+    
+    </div>
+   
+    <div id="plus"></div>
+    <button type="button" id="add" class="btn btn-default btn-lg">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Ajouter des conditions de voyage
+    </button>
         <button type="submit" class="btn btn-primary">Valider</button>
 </form>
 
@@ -74,10 +91,14 @@
             $("#datepicker").datepicker();
             $('.clockpicker').clockpicker();
             $("#heure").on("click", function () {
-              
-                $("button, .btn, .btn-sm, .btn-default, .btn-block, .clockpicker-button").text("Valider");
+
+                $(" .clockpicker-button").text("Valider");
             })
-          
+            $("#add").on("click", function () {
+                $("#listtype").clone().appendTo("#plus");
+            })
+               
+
         });
     });
 </script>

@@ -11,16 +11,31 @@ namespace ClientAmigo.Controllers
     {
         private Voyage voyage = new Voyage();
         private Ville ville = new Ville();
+        private TypeV typee = new TypeV();
+        private typeVoyage tv = new typeVoyage();
         private List<Ville> listv = new List<Ville>();
+        private List<TypeV> listT = new List<TypeV>();
+        private List<typeVoyage> listTvoyage = new List<typeVoyage>();
         // GET: Voyage
         public ActionResult Index()
         {
-            string listville = ville.getAllville();
-            var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
-            listv= ser.Deserialize<List<Ville>>(listville);
-            ViewBag.listv = listv;
-            
-            return View();
+            if (Session["id"]!=null)
+            {
+                string listville = ville.getAllville();
+                string listtype = typee.getListType();
+                var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+                listv = ser.Deserialize<List<Ville>>(listville);
+                listT = ser.Deserialize<List<TypeV>>(listtype);
+                ViewBag.listv = listv;
+                ViewBag.list = listT;
+
+                return View();
+            }
+            else
+            {
+                return View("Connexion");
+            }
+           
         }
         public ActionResult search()
         {
@@ -29,29 +44,44 @@ namespace ClientAmigo.Controllers
             string date = Request.Form["date"];
             string heure = Request.Form["heure"];
             var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string listtype = typee.getListType();
             List<Voyage> ListVoyage=ser.Deserialize<List<Voyage>>(voyage.getListVoyage(arr, dep,heure,date));
+            listTvoyage = ser.Deserialize<List<typeVoyage>>(tv.getListTypeVoyage());
+            listT = ser.Deserialize<List<TypeV>>(listtype);
             ViewBag.listvoyage = ListVoyage;
             ViewBag.length = ListVoyage.Count;
+            ViewBag.condition = listTvoyage;
+            ViewBag.list = listT;
             return View();
         }
         public ActionResult create()
         {
             string listville = ville.getAllville();
             var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string listtype = typee.getListType();
             listv = ser.Deserialize<List<Ville>>(listville);
+            listT = ser.Deserialize<List<TypeV>>(listtype);
             ViewBag.listv = listv;
+            ViewBag.list = listT;
             Console.WriteLine(Session["id"]);
             int nbplace = Convert.ToInt32(Request.Form["nbplace"]);
             string dep = Request.Form["depart"];
             string arr = Request.Form["arrive"];
             string type = Request.Form["type"];
+            string typeV = Request.Form["typeV"];
             double prix = Convert.ToDouble(Request.Form["prix"]);
             string date = Request.Form["date"];
             string heure = Request.Form["heure"];
             string id = Convert.ToString(Session["id"]);
 
             var result = voyage.createVoyage(id, arr, dep, heure, date, nbplace, prix, type);
-
+            Voyage v = ser.Deserialize<Voyage>(result);
+           string[] typeVA = typeV.Split(',');
+            foreach(string t in typeVA)
+            {
+                var result2 = tv.create(t,v.id);
+            }
+            
             if (result !="")
             {
                 ViewData["msg"] = "Voyage Crée";

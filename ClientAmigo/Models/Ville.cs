@@ -15,7 +15,7 @@ namespace ClientAmigo.Models
         public string name { get; set; }
         public string region { get; set; }
         private string PostData { get; set; }
-        private string page = "http://localhost:8090/ville";
+        private string page = "https://amigoapi.herokuapp.com/ville";
         public string getAllville()
         {
             var request = (HttpWebRequest)WebRequest.Create(page);

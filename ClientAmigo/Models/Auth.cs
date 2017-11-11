@@ -13,7 +13,8 @@ namespace ClientAmigo.Models
     {
        
         public string PostData { get; set; }
-        private string page = "http://localhost:8090/auth";
+        private string page = "https://amigoapi.herokuapp.com/auth";
+        //private string page = "http://localhost:8090/auth";
         public string postAuthExistByLogin(string login)
         {
             var request = (HttpWebRequest)WebRequest.Create(page  );
