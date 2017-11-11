@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Net;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace ClientAmigo.Models
 {
@@ -26,6 +27,8 @@ namespace ClientAmigo.Models
         public string type { get; set; }
 
         public double credit { get; set; }
+        public double note { get; set; }
+        public int nbvoyage { get; set; }
         private string PostData { get; set; }
         private string verb;
        // private string page = "https://amigoapi.herokuapp.com/user";
@@ -82,6 +85,14 @@ namespace ClientAmigo.Models
             verb = HttpVerbs.Put.ToString();
             PostData = "{ \"idUser\":\"" + id + "\",\"price\":\"" + price + "\"}";
             string response = MakeReq(PostData, "/pay", HttpStatusCode.OK);
+            return response;
+
+        }
+        public string updateUser(User user)
+        {
+            verb = HttpVerbs.Put.ToString();
+            PostData = JsonConvert.SerializeObject(user);
+            string response = MakeReq(PostData, "", HttpStatusCode.OK);
             return response;
 
         }

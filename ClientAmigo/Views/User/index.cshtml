@@ -4,7 +4,7 @@
 }
 
 <h2>Profile @ViewBag.user.name</h2>
-
+<h2>Note de satisfaction @ViewBag.user.note</h2>
 <div>
     <form>
         <div class="form-group">
@@ -28,5 +28,75 @@
 
         <button type="submit" class="btn btn-primary">Modifier Info</button>
     </form>
-    
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+        @{
+            var t = 0;
+            <input type="hidden" id="length" value="@ViewBag.length" />
+            foreach (var v in ViewBag.list)
+            {
+
+                <div id="@String.Concat("notecard",t)" class="card">
+                    <div class="card-header" role="tab" id="@String.Concat("headingOne", t)">
+                        <h5 class="mb-0">
+                            <a id="@String.Concat("link", t)" data-toggle="collapse" data-parent="#accordion" href="@String.Concat("#collapseOne", t)" aria-expanded="true" aria-controls="@String.Concat("#collapseOne", t)">
+                                @v.depart-@v.arrive   ----------------------------------------@v.date
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="@String.Concat("collapseOne", t)" class=" show in" role="tabpanel" aria-labelledby="@String.Concat("#headingOne", t)">
+                        <div id="@t" class="card-block">
+                            <form id="@String.Concat("idvoyagenote",t)" >
+                                @foreach (var r in ViewBag.listres)
+                                {
+                                    if (r.idVoyage == v.id)
+                                    {
+                                        <input type="hidden" id="@String.Concat("idresa",t)" name="idresa" value="@r.id" />
+                                    }
+                                }
+                                <input type="hidden" id="@String.Concat("idvoyage",t)" name="idvoyage" value="@v.id" />
+                                <input type="hidden" name="note" id="@String.Concat("note",t)" />
+                            </form>
+                           
+                            <label for="input-2" class="control-label">Rate This</label>
+                            <input id="input-@t" name="@t" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1">
+                        </div>
+                    </div>
+                </div>
+                t++;
+            }
+
+
+
+        }
+    </div>
+
 </div>
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $("[id^=input]").rating().on("rating:change", function (event, value, caption) {
+               
+                $("#note" + $(this).attr("name")).val($(this).val());
+                var id = $("#idvoyage" + $(this).attr("name")).val();
+                var idresa = $("#idresa" + $(this).attr("name")).val();
+                var t = $(this).attr("name");
+                $.ajax({
+                    url: "/User/updatenote",
+                    type: "POST",
+                    data: { "note": $(this).val().toString().replace(".", ","), "idvoyage": id ,"idresa":idresa},
+                    success : function (html) {
+                       
+                        $("#notecard" +t ).fadeOut();
+                    }
+                })
+                
+            });
+
+
+
+            })
+
+        
+    });
+</script>

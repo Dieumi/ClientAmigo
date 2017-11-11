@@ -170,6 +170,8 @@
     <Content Include="Content\jquery-clockpicker.css" />
     <Content Include="Content\jquery-clockpicker.min.css" />
     <Content Include="Content\standalone.css" />
+    <Content Include="Content\star-rating.css" />
+    <Content Include="Content\star-rating.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -193,10 +195,27 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\locales\ar.js" />
+    <Content Include="Scripts\locales\de.js" />
+    <Content Include="Scripts\locales\es.js" />
+    <Content Include="Scripts\locales\fa.js" />
+    <Content Include="Scripts\locales\fr.js" />
+    <Content Include="Scripts\locales\it.js" />
+    <Content Include="Scripts\locales\ko.js" />
+    <Content Include="Scripts\locales\LANG.js" />
+    <Content Include="Scripts\locales\pl.js" />
+    <Content Include="Scripts\locales\pt-BR.js" />
+    <Content Include="Scripts\locales\ro.js" />
+    <Content Include="Scripts\locales\ru.js" />
+    <Content Include="Scripts\locales\tr.js" />
+    <Content Include="Scripts\locales\ua.js" />
+    <Content Include="Scripts\locales\zh.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\standalone.css" />
+    <Content Include="Scripts\star-rating.js" />
+    <Content Include="Scripts\star-rating.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

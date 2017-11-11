@@ -14,7 +14,7 @@ namespace ClientAmigo.Models
         public string id { get; set; }
         public string idVoyage { get; set; }
         public string idUser { get; set; }
-
+        public double note { get; set; }
         private string verb;
         private string PostData { get; set; }
         private string page = "http://localhost:8090/uservoyage";
@@ -26,13 +26,17 @@ namespace ClientAmigo.Models
             request.Method = verb;
             request.ContentLength = 0;
             request.ContentType = "application/json";
-            var encoding = new UTF8Encoding();
-            var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(data);
-            request.ContentLength = bytes.Length;
-
-            using (var writeStream = request.GetRequestStream())
+            if (verb != "Get")
             {
-                writeStream.Write(bytes, 0, bytes.Length);
+                var encoding = new UTF8Encoding();
+                var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(data);
+                request.ContentLength = bytes.Length;
+
+                using (var writeStream = request.GetRequestStream())
+                {
+                    writeStream.Write(bytes, 0, bytes.Length);
+                }
+
             }
 
 
@@ -69,6 +73,19 @@ namespace ClientAmigo.Models
             string responsevalue = MakeReq(PostData, "",HttpStatusCode.Created);
             return responsevalue;
         }
-        
+        public string findAllById(string idUser)
+        {
+            verb = HttpVerbs.Get.ToString();
+          
+            string responsevalue = MakeReq(PostData, "/"+idUser, HttpStatusCode.OK);
+            return responsevalue;
+        }
+        public string updatenote(string idresa,string idvoyage,string iduser,double note)
+        {
+            verb = HttpVerbs.Put.ToString();
+            PostData = "{\"id\":\"" + idresa + "\",\"idVoyage\":\"" + idvoyage + "\",\"idUser\":\"" + iduser + "\",\"note\":\"" + note.ToString().Replace(",",".") + "\"}";
+            string responsevalue = MakeReq(PostData, "", HttpStatusCode.OK);
+            return responsevalue;
+        }
     }
 }

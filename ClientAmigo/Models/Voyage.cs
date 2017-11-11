@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Net;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace ClientAmigo.Models
 {
@@ -89,10 +90,17 @@ namespace ClientAmigo.Models
             string response = MakeReq(PostData,"/getList",HttpStatusCode.OK);
             return response;
         }
+        public string getListVoyageById(List<string> idlist)
+        {
+            verb = HttpVerbs.Post.ToString();
+            PostData = JsonConvert.SerializeObject(idlist);
+            string response = MakeReq(PostData, "/getListByUser", HttpStatusCode.OK);
+            return response;
+        }
         public string updateVoyage(string idvoyage)
         {
             verb = HttpVerbs.Put.ToString();
-            PostData = idvoyage;
+            PostData =  idvoyage;
             string responsevalue = MakeReq(PostData, "/reduce", HttpStatusCode.OK);
             return responsevalue;
         }
