@@ -13,11 +13,17 @@ namespace ClientAmigo.Controllers
         User user = new User();
         Voyage v = new Voyage();
         Reservation res = new Reservation();
+        private List<Ville> listv = new List<Ville>();
+        private List<TypeV> listT = new List<TypeV>();
+        private TypeV typee = new TypeV();
+        private typeVoyage tv = new typeVoyage();
+        private List<typeVoyage> listTvoyage = new List<typeVoyage>();
         // GET: User
         public ActionResult Index()
         {
            string result = user.findUser(Session["login"].ToString());
             string resa = res.findAllById(Session["id"].ToString());
+            string listtype = typee.getListType();
             var ser = new System.Web.Script.Serialization.JavaScriptSerializer();
             
             User userresponse = ser.Deserialize<User>(result);
@@ -30,9 +36,16 @@ namespace ClientAmigo.Controllers
                 ViewBag.list = listvoyage;
                 ViewBag.listres = listresa;
             }
-            
+            listTvoyage = ser.Deserialize<List<typeVoyage>>(tv.getListTypeVoyage());
+            listT = ser.Deserialize<List<TypeV>>(listtype);
+            List<Voyage> listvoyageUser;
+            string response= v.getListVoyageByIdUser(Session["id"].ToString());
+            listvoyageUser = ser.Deserialize<List<Voyage>>(response);
             ViewBag.user = userresponse;
-          
+            ViewBag.listvoyage = listvoyageUser;
+            ViewBag.listT = listT;
+            ViewBag.length = listvoyageUser.Count;
+            ViewBag.condition = listTvoyage;
             return View();
         }
         public ContentResult updatenote()

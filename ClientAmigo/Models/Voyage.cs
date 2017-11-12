@@ -97,6 +97,13 @@ namespace ClientAmigo.Models
             string response = MakeReq(PostData, "/getListByUser", HttpStatusCode.OK);
             return response;
         }
+        public string getListVoyageByIdUser(string idUser)
+        {
+            verb = HttpVerbs.Post.ToString();
+            PostData = idUser;
+            string response = MakeReq(PostData, "/getListById", HttpStatusCode.OK);
+            return response;
+        }
         public string updateVoyage(string idvoyage)
         {
             verb = HttpVerbs.Put.ToString();

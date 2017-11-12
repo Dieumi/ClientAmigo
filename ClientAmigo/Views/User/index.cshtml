@@ -70,6 +70,93 @@
 
         }
     </div>
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+        @{
+             t = 0;
+            <input type="hidden" id="length" value="@ViewBag.length" />
+            foreach (var v in ViewBag.listvoyage)
+            {
+
+                <div class="card">
+                    <div class="card-header" role="tab" id="@String.Concat("headingOnevoyage", t)">
+                        <h5 class="mb-0">
+                            <a id="@String.Concat("linkvoyage", t)" data-toggle="collapse" data-parent="#accordion" href="@String.Concat("#collapseOnevoyage", t)" aria-expanded="true" aria-controls="@String.Concat("#collapseOnevoyage", t)">
+                                @v.depart-@v.arrive   ----------------------------------------@v.date
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="@String.Concat("collapseOnevoyage", t)" class=" show in" role="tabpanel" aria-labelledby="@String.Concat("#headingOnevoyage", t)">
+                        <div id="@t" class="card-block">
+                            @v.depart-@v.arrive
+
+
+                            Heure départ : @v.heureDep
+                            <br>
+                            Nombre de place restante
+                            @for (int i = 0; i < v.nbplace; i++)
+                            {
+                                <img src="~/Content/image/images.png" width="50" height="25" />
+                            }
+
+                            <br>
+                            @foreach (var c in ViewBag.condition)
+                            {
+                                if (c.idvoyage == v.id)
+                                {
+                                    foreach (var value in ViewBag.list)
+                                    {
+                                        if (c.idType == value.id)
+                                        {
+                                            switch (value.value)
+                                            {
+                                                case ("non fumeur"):
+                                                    <img src="~/Content/image/no_smoking_symbol.svg.png" width="50" height="25" />
+                                                    break;
+                                                case ("pas d'animaux autorisés"):
+                                                    <img src="~/Content/image/pictogram-din-p014-dogs-or-animals.png" width="50" height="25" />
+                                                    break;
+                                                case ("1 valise autorisé par passager"):
+                                                    <div>Nombre de valise par passager:</div>
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    break;
+                                                case ("2 valise autorisé par passager"):
+                                                    <div>Nombre de valise par passager:</div>
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    break;
+                                                case ("3 valise autorisé par passager"):
+                                                    <div>Nombre de valise par passager:</div>
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    break;
+                                            }
+                                            @value.value<br />
+                                        }
+                                    }
+                                }
+                            }
+                            Prix de la place : @v.price<br>
+                            Point de départ : @v.note
+                            <form class="form-inline my-2 my-lg-0" action="/Voyage/delete" method="post">
+                                <input class="form-control mr-sm-2" name="id" type="hidden" value="@v.id">
+                                <input type="hidden" value="@v.price" name="price" />
+                                <button type="submit" class="btn btn-primary">Supprimer</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                t++;
+            }
+
+
+
+        }
+    </div>
+
+
 
 </div>
 <script>
