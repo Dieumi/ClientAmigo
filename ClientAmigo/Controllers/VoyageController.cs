@@ -73,8 +73,8 @@ namespace ClientAmigo.Controllers
             string date = Request.Form["date"];
             string heure = Request.Form["heure"];
             string id = Convert.ToString(Session["id"]);
-
-            var result = voyage.createVoyage(id, arr, dep, heure, date, nbplace, prix, type);
+            string note = Request.Form["note"];
+            var result = voyage.createVoyage(id, arr, dep, heure, date, nbplace, prix, type,note);
             Voyage v = ser.Deserialize<Voyage>(result);
            string[] typeVA = typeV.Split(',');
             foreach(string t in typeVA)

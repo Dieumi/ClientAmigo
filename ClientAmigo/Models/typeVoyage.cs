@@ -16,8 +16,8 @@ namespace ClientAmigo.Models
         public string idvoyage { get; set; }
         private string PostData { get; set; }
         private string verb;
-        // private string page = "https://amigoapi.herokuapp.com/user";
-        private string page = "http://localhost:8090/typeVoyage";
+        private string page = "https://amigoapi.herokuapp.com/typeVoyage";
+       // private string page = "http://localhost:8090/typeVoyage";
         public string MakeReq(string data, string pagesuite, HttpStatusCode status)
         {
             var request = (HttpWebRequest)WebRequest.Create(page + pagesuite);

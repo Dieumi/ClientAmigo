@@ -167,6 +167,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\clockpicker.css" />
     <Content Include="Content\image\images.png" />
+    <Content Include="Content\image\no_smoking_symbol.svg.png" />
+    <Content Include="Content\image\pictogram-din-p014-dogs-or-animals.png" />
+    <Content Include="Content\image\téléchargement.png" />
     <Content Include="Content\jquery-clockpicker.css" />
     <Content Include="Content\jquery-clockpicker.min.css" />
     <Content Include="Content\standalone.css" />

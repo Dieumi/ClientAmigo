@@ -26,13 +26,13 @@ namespace ClientAmigo.Models
 
         public string typeVoiture { get; set; }
         public double price { get; set; }
-        public double note { get; set; }
+        public string note { get; set; }
         public string date { get; set; }
         public string heureDep { get; set; }
         private string verb;
         private string PostData { get; set; }
-      //  private string page = "https://amigoapi.herokuapp.com/voyage";
-        private string page = "http://localhost:8090/voyage";
+        private string page = "https://amigoapi.herokuapp.com/voyage";
+       // private string page = "http://localhost:8090/voyage";
 
         public string MakeReq(string data,string pagesuite,HttpStatusCode status)
         {
@@ -76,10 +76,10 @@ namespace ClientAmigo.Models
 
             }
         }
-        public string createVoyage(string id,string arrive, string depart, string heure, string date,int nbplace,double prix,string typevoiture)
+        public string createVoyage(string id,string arrive, string depart, string heure, string date,int nbplace,double prix,string typevoiture,string note)
         {
             verb = HttpVerbs.Post.ToString();
-            PostData = "{ \"idUser\":\"" + id + "\",\"nbplace\":\"" + nbplace + "\",\"depart\":\"" + depart + "\",\"arrive\":\"" + arrive + "\",\"typeVoiture\":\""+typevoiture+ "\",\"price\":\"" + prix + "\",\"heureDep\":\"" + heure + "\",\"date\":\"" + date + "\"}";
+            PostData = "{ \"idUser\":\"" + id + "\",\"nbplace\":\"" + nbplace + "\",\"depart\":\"" + depart + "\",\"arrive\":\"" + arrive + "\",\"typeVoiture\":\""+typevoiture+ "\",\"price\":\"" + prix + "\",\"heureDep\":\"" + heure + "\",\"date\":\"" + date + "\",\"note\":\"" + note + "\"}";
             string response= MakeReq(PostData,null,HttpStatusCode.Created);
             return response;
         }

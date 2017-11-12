@@ -36,20 +36,45 @@
                             }
 
                             <br>
-                            @foreach(var c in ViewBag.condition)
+                            @foreach (var c in ViewBag.condition)
                             {
                                 if (c.idvoyage == v.id)
                                 {
-                                    foreach(var value in ViewBag.list)
+                                    foreach (var value in ViewBag.list)
                                     {
                                         if (c.idType == value.id)
-                                         {
-                                            @value.value
+                                        {
+                                            switch (value.value)
+                                            {
+                                                case ("non fumeur"):
+                                                    <img src="~/Content/image/no_smoking_symbol.svg.png" width="50" height="25" />
+                                                    break;
+                                                case ("pas d'animaux autorisés"):
+                                                    <img src="~/Content/image/pictogram-din-p014-dogs-or-animals.png" width="50" height="25" />
+                                                    break;
+                                                case ("1 valise autorisé par passager"):
+                                                   <div>Nombre de valise par passager:</div> 
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    break;
+                                                case ("2 valise autorisé par passager"):
+                                                    <div>Nombre de valise par passager:</div>
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    break;
+                                                case ("3 valise autorisé par passager"):
+                                                    <div>Nombre de valise par passager:</div>
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    <img src="~/Content/image/téléchargement.png" width="50" height="25" />
+                                                    break;
+                                            }
+                                            @value.value<br />
                                         }
                                     }
                                 }
                             }
                             Prix de la place : @v.price<br>
+                            Point de départ : @v.note
                             <form class="form-inline my-2 my-lg-0" action="/Reservation/book" method="post">
                                 <input class="form-control mr-sm-2" name="id" type="hidden" value="@v.id">
                                 <input type="hidden" value="@v.price" name="price" />

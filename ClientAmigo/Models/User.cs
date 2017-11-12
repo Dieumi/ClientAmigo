@@ -31,8 +31,8 @@ namespace ClientAmigo.Models
         public int nbvoyage { get; set; }
         private string PostData { get; set; }
         private string verb;
-       // private string page = "https://amigoapi.herokuapp.com/user";
-        private string page = "http://localhost:8090/user";
+        private string page = "https://amigoapi.herokuapp.com/user";
+        //private string page = "http://localhost:8090/user";
         public string MakeReq(string data, string pagesuite, HttpStatusCode status)
         {
             var request = (HttpWebRequest)WebRequest.Create(page + pagesuite);
