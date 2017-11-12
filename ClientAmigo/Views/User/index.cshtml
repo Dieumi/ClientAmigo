@@ -28,6 +28,7 @@
 
         <button type="submit" class="btn btn-primary">Modifier Info</button>
     </form>
+    <h2>Mes voyages à noter</h2>
     <div id="accordion" role="tablist" aria-multiselectable="true">
         @{
             var t = 0;
@@ -70,6 +71,8 @@
 
         }
     </div>
+
+    <h2>Mes voyages à venir</h2>
     <div id="accordion" role="tablist" aria-multiselectable="true">
         @{
              t = 0;
@@ -77,7 +80,7 @@
             foreach (var v in ViewBag.listvoyage)
             {
 
-                <div class="card">
+                <div id="@String.Concat("voyagecard", t)" class="card">
                     <div class="card-header" role="tab" id="@String.Concat("headingOnevoyage", t)">
                         <h5 class="mb-0">
                             <a id="@String.Concat("linkvoyage", t)" data-toggle="collapse" data-parent="#accordion" href="@String.Concat("#collapseOnevoyage", t)" aria-expanded="true" aria-controls="@String.Concat("#collapseOnevoyage", t)">
@@ -140,9 +143,9 @@
                             Prix de la place : @v.price<br>
                             Point de départ : @v.note
                             <form class="form-inline my-2 my-lg-0" action="/Voyage/delete" method="post">
-                                <input class="form-control mr-sm-2" name="id" type="hidden" value="@v.id">
-                                <input type="hidden" value="@v.price" name="price" />
-                                <button type="submit" class="btn btn-primary">Supprimer</button>
+                                <input class="form-control mr-sm-2" name="id"  id="@String.Concat("id",t)" type="hidden" value="@v.id">
+                                <input class="hidden" name="id" type="hidden" value="@t">
+                                <button type="button" id="@String.Concat("delete",t)" class="btn btn-primary">Supprimer</button>
 
                             </form>
                         </div>
@@ -179,6 +182,38 @@
                 })
                 
             });
+            $("[id^=linkvoyage]").on("click", function () {
+                var val = $("#length").val();
+                setTimeout(function () {
+                    for (var i = 0; i < val; i++) {
+                        if ($("#" + i).parent().hasClass("collapse") && i >= val - 2) {
+                            $("#" + i).addClass("hidden");
+                        } else {
+                            $("#" + i).removeClass("hidden");
+                        }
+
+                    }
+                }, 500);
+
+
+
+
+            })
+            $("[id^=delete]").on("click", function () {
+                var id = $("#delete0").siblings(".form-control, .mr-sm-2").val();
+                var t = $("#delete0").siblings(".hidden").val();
+                $.ajax({
+                    url: "/Voyage/delete",
+                    type: "POST",
+                    data: { "id":id},
+                    success: function (html) {
+                        alert("test");
+                        $("#voyagecard" + t).fadeOut();
+                    }
+                })
+            })
+
+
 
 
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -65,8 +66,11 @@ namespace ClientAmigo.Controllers
             ViewBag.list = listT;
             Console.WriteLine(Session["id"]);
             int nbplace = Convert.ToInt32(Request.Form["nbplace"]);
-            string dep = Request.Form["depart"];
-            string arr = Request.Form["arrive"];
+            Encoding utf = Encoding.UTF8;
+            Byte[] depb = utf.GetBytes(Request.Form["depart"]);
+            string dep = utf.GetString(depb);
+            Byte[] arrb = utf.GetBytes(Request.Form["arrive"]);
+            string arr = utf.GetString(arrb);
             string type = Request.Form["type"];
             string typeV = Request.Form["typeV"];
             double prix = Convert.ToDouble(Request.Form["prix"]);
@@ -88,6 +92,12 @@ namespace ClientAmigo.Controllers
             }
             return View("index");
         }
-       
+        public ContentResult delete()
+        {
+            string response = voyage.deleteVoyage(Request.Form["id"]);
+
+            return Content(response);
+        }
+
     }
 }

@@ -5,30 +5,43 @@
 
 <h2>Créer votre itinéraire</h2>
 
+    <script type="text/javascript">
+        google.maps.event.addDomListener(window, 'load', function () {
+            var places = new google.maps.places.Autocomplete(document.getElementById('arrr'));
+            google.maps.event.addListener(places, 'place_changed', function () {
+                var place = places.getPlace();
+                var address = place.formatted_address;
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng();
+                var mesg = "Address: " + address;
+                mesg += "\nLatitude: " + latitude;
+                mesg += "\nLongitude: " + longitude;
+                
+            });
+             places = new google.maps.places.Autocomplete(document.getElementById('depp'));
+            google.maps.event.addListener(places, 'place_changed', function () {
+                var place = places.getPlace();
+                var address = place.formatted_address;
+                var latitude = place.geometry.location.lat();
+                var longitude = place.geometry.location.lng();
+                var mesg = "Address: " + address;
+                mesg += "\nLatitude: " + latitude;
+                mesg += "\nLongitude: " + longitude;
+             
+            });
+        });
+</script>
+
 <form method="post" action="/Voyage/create">
     <div class="form-group">
         <label for="dep">Depart</label>
-        <select  name="depart" id="dep" class="custom-select">
-            <option selected>Open this select menu</option>
-            @{
-                foreach (var ville in ViewBag.listv)
-                {
-                    <option value="@ville.name">@ville.name</option>
-                }
-            }
-        </select>
+        
+        <input type='text' name="depart" id="depp" class="form-control" />
         </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Arrivé</label>
-        <select name="arrive"  id ="arr" class="custom-select">
-            <option selected>Open this select menu</option>
-            @{
-                foreach (var ville in ViewBag.listv)
-                {
-                    <option id="@ville.id">@ville.name</option>
-                }
-            }
-        </select>
+    
+        <input type='text' name="arrive" id="arrr" class="form-control" />
      </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Type de voiture</label>

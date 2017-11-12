@@ -32,25 +32,27 @@ namespace ClientAmigo.Models
         private string verb;
         private string PostData { get; set; }
         private string page = "https://amigoapi.herokuapp.com/voyage";
-       // private string page = "http://localhost:8090/voyage";
+        //private string page = "http://localhost:8090/voyage";
 
         public string MakeReq(string data,string pagesuite,HttpStatusCode status)
         {
             var request = (HttpWebRequest)WebRequest.Create(page+pagesuite);
 
-            request.Method = verb;
+            request.Method = verb.ToUpper();
             request.ContentLength = 0;
-            request.ContentType = "application/json";
-            var encoding = new UTF8Encoding();
-            var bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(data);
-            request.ContentLength = bytes.Length;
-
-            using (var writeStream = request.GetRequestStream())
+            request.ContentType = "application/json;charset=UTF-8";
+            if ( verb ==HttpVerbs.Post.ToString() )
             {
-                writeStream.Write(bytes, 0, bytes.Length);
+                var encoding = new UTF8Encoding();
+                var bytes = Encoding.GetEncoding("UTF-8").GetBytes(data);
+                request.ContentLength = bytes.Length;
+
+                using (var writeStream = request.GetRequestStream())
+                {
+                    writeStream.Write(bytes, 0, bytes.Length);
+                }
+
             }
-
-
             using (var response = (HttpWebResponse)request.GetResponse())
             {
                 var responseValue = string.Empty;
@@ -109,6 +111,13 @@ namespace ClientAmigo.Models
             verb = HttpVerbs.Put.ToString();
             PostData =  idvoyage;
             string responsevalue = MakeReq(PostData, "/reduce", HttpStatusCode.OK);
+            return responsevalue;
+        }
+        public string deleteVoyage(string idvoyage)
+        {
+            verb = HttpVerbs.Delete.ToString();
+            PostData = idvoyage;
+            string responsevalue = MakeReq(PostData, "/delete/"+idvoyage, HttpStatusCode.OK);
             return responsevalue;
         }
     }
