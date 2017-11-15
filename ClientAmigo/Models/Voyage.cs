@@ -32,7 +32,7 @@ namespace ClientAmigo.Models
         private string verb;
         private string PostData { get; set; }
         private string page = "https://amigoapi.herokuapp.com/voyage";
-        //private string page = "http://localhost:8090/voyage";
+       //private string page = "http://localhost:8090/voyage";
 
         public string MakeReq(string data,string pagesuite,HttpStatusCode status)
         {
@@ -41,7 +41,7 @@ namespace ClientAmigo.Models
             request.Method = verb.ToUpper();
             request.ContentLength = 0;
             request.ContentType = "application/json;charset=UTF-8";
-            if ( verb ==HttpVerbs.Post.ToString() )
+            if ( verb ==HttpVerbs.Post.ToString() || verb == HttpVerbs.Put.ToString())
             {
                 var encoding = new UTF8Encoding();
                 var bytes = Encoding.GetEncoding("UTF-8").GetBytes(data);

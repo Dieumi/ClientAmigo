@@ -18,7 +18,7 @@ namespace ClientAmigo.Models
         private string verb;
         private string PostData { get; set; }
         private string page = "https://amigoapi.herokuapp.com/uservoyage";
-        //private string page = "http://localhost:8090/uservoyage";
+       // private string page = "http://localhost:8090/uservoyage";
 
         public string MakeReq(string data, string pagesuite,HttpStatusCode status)
         {

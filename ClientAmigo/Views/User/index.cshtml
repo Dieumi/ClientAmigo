@@ -177,7 +177,7 @@
                     data: { "note": $(this).val().toString().replace(".", ","), "idvoyage": id ,"idresa":idresa},
                     success : function (html) {
                        
-                        $("#notecard" +t ).fadeOut();
+                        //$("#notecard" +t ).fadeOut();
                     }
                 })
                 
@@ -207,7 +207,7 @@
                     type: "POST",
                     data: { "id":id},
                     success: function (html) {
-                        alert("test");
+                        //alert("test");
                         $("#voyagecard" + t).fadeOut();
                     }
                 })
